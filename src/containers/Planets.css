@@ -1,0 +1,21 @@
+.div {
+    text-align: center;
+    margin: 2%;
+    padding: 2%;
+  }
+
+
+  .planet-info{
+    width:70%;
+    margin: auto; 
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color : whitesmoke;
+    padding: 15px;
+    box-shadow: 0 5px 10px rgba(8, 7, 7, 0.877);
+    border: 0.5px solid black;
+  
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  
+}
