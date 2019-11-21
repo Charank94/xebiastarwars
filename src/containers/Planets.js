@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Planets.css'
 import axios from 'axios'
 
+
 class Planets extends Component {
     state = {
         planetList: [],
@@ -36,16 +37,34 @@ class Planets extends Component {
 
     searchData = (e) => {
         var queryData = [];
+        let actfontSize = 50;
         if (e.target.value !== '') {
             this.state.planetList.forEach((planet) => {
                 if (planet.name.toLowerCase().includes((e.target.value.toLowerCase()))) {
                     queryData.push(planet);
                 }
             });
+            queryData = queryData.sort((a, b) => {
+                if (a.population === "unknown" && b.population === "unknown") {
+                    return false
+                }
+                else if (b.population === "unknown") {
+                    return true
+                } else if (a.population === "unknown") {
+                    return true
+                }
+                else {
+                    return b.population - a.population
+                }
+
+            });
             queryData = queryData.map((data) => {
                 data.showInfo = false;
+                data.fontSize = actfontSize;
+                actfontSize = actfontSize - 1;
                 return data;
             });
+
             this.setState({ searchList: queryData });
         };
 
@@ -72,10 +91,11 @@ class Planets extends Component {
 
     render() {
 
-        let displayLoading = this.state.showPlanet ? <p style={{color:"blue"}}> Loading Planet Details </p> : ''
+        let displayLoading = this.state.showPlanet ? <p style={{ color: "blue" }}> Loading Planet Details </p> : ''
 
 
         let displayPlanets = this.state.searchList.map((planet) => {
+            let planetSize = planet.fontSize + 'px'
 
             let displayPlanetInfo = planet.showInfo ? (
                 <div >
@@ -109,7 +129,7 @@ class Planets extends Component {
             return (
                 <div className="planet-info">
                     <div onClick={() => this.handleClick(planet)}>
-                        <strong>{planet.name}</strong>
+                        <p style={{ fontSize: planetSize }}>{planet.name}</p>
                         {displayPlanetInfo}
 
                     </div>
